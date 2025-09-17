@@ -8,7 +8,10 @@ class Category(models.Model):
     def __str__(self):
         # Удобно для админки: при выводе объекта Category будет показываться его название
         return self.title
-
+    
+    class Meta():
+        verbose_name = 'Категорию'
+        verbose_name_plural = 'Категории'
 
 class Post(models.Model):
     """Новостные посты"""
@@ -51,3 +54,7 @@ class Post(models.Model):
     def __str__(self):
         # Удобно для админки и shell: при выводе объекта Post показываем его заголовок
         return self.title
+    
+    class Meta():
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
