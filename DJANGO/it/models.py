@@ -3,7 +3,7 @@ from django.utils.text import slugify  # для генерации челове�
 
 class Category(models.Model):
     """Категория новостей"""
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name='Название категории')
 
     def __str__(self):
         # Удобно для админки: при выводе объекта Category будет показываться его название
@@ -13,23 +13,24 @@ class Category(models.Model):
         verbose_name = 'Категорию'
         verbose_name_plural = 'Категории'
 
+
 class Post(models.Model):
     """Новостные посты"""
-    title = models.CharField(max_length=255)
-    content = models.TextField(default='Пока ничего нет, но вы держитесь!')
-    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    content = models.TextField(default='Пока ничего нет, но вы держитесь!', verbose_name='Контент')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     # Дата и время создания, автоматически при первом сохранении объекта
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     # Дата и время последнего обновления, автоматически при каждом сохранении объекта
-    photo = models.ImageField(upload_to='photos/', blank=True, null=True)
+    photo = models.ImageField(upload_to='photos/', blank=True, null=True, verbose_name='Изображение')
     # Счётчик просмотров поста
-    watched = models.IntegerField(default=0)
-    is_published = models.BooleanField(default=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    watched = models.IntegerField(default=0, verbose_name='Количество просмотров')
+    is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     # Поле для человеко-понятного URL (slug)
     # unique=True — чтобы slug был уникальным в базе
     # blank=True и null=True позволяют создавать объект без явного slug, он сгенерируется автоматически
-    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='ЧПУ (slug)')
 
     def save(self, *args, **kwargs):
         """
