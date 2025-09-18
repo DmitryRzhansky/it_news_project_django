@@ -1,0 +1,15 @@
+        <aside class="col-md-3 mb-4">
+            <div class="bg-secondary text-light p-2 text-center rounded-0">
+                <h5 class="mb-0">Категории</h5>
+            </div>
+            <div class="list-group bg-dark rounded-0">
+                {% for category in categories %}
+                    <a 
+                        href="#" 
+                        class="list-group-item list-group-item-action bg-dark text-light border-secondary rounded-0"
+                    >
+                        {{ category.title }}
+                    </a>
+                {% endfor %}
+            </div>
+        </aside>
